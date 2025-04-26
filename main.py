@@ -1,3 +1,5 @@
+from stats import get_num_words,get_num_characters,get_sorted_characters
+
 def get_book_text(file_path):
   """
   Reads the content of a book file and returns it as a string.
@@ -11,24 +13,24 @@ def get_book_text(file_path):
   with open(file_path, 'r', encoding='utf-8') as file:
     return file.read()
 
-def count_words(content):
-  """
-  Counts the number of words in the content and returns it as a number.
-
-  Args:
-    content: the content as (very long) string
-
-  Returns:
-    the words counted.
-  """
-  return len(content.split())
-
 def main():
   """
   Just uses the other functions in this code to create an executable program.
   """
+  book = "books/frankenstein.txt"
+  print("============ BOOKBOT ============")
+  print(f"Analyzing book found at {book}...")
+
   content = get_book_text("books/frankenstein.txt")
-  words = count_words(content)
-  print(f"{words} words found in the document")
+  num_words = get_num_words(content)
+  print("----------- Word Count ----------")
+  print(f"Found {num_words} total words")
+  num_characters = get_num_characters(content)
+  sorted_characters = get_sorted_characters(num_characters)
+  print("--------- Character Count -------")
+  for entry in sorted_characters:
+    if entry["char"].isalpha():
+      print(f"{entry["char"]}: {entry["num"]}")
+  print("============= END ===============")
 
 main()
